@@ -1,21 +1,28 @@
-{   
-    "require": {
-    	"phpmailer/phpmailer":"5.2.22",
+{
+    "name": "manguto/cms3",
+    "type": "library",
+    "description": "My Content Management System",
+    "authors": [
+        {
+            "name": "Manguto",
+            "email": "admin@manguto.com"
+        }
+    ],
+    "require": {    
+        "php": "^7.0.0",
+        "phpmailer/phpmailer":"5.2.22",
     	"slim/slim":"2.0",
     	"rain/raintpl":">=3.0.0"
-    },   	
-    "autoload": {    	
-        "psr-4": {
-            "lib\\": "lib/",            
-            "gms\\": "gms/",           
-            "model\\": "model/",            
-            "reporitory\\": "reporitory/"            
-        }
     },    
+	"autoload": {
+    	"psr-4": {        
+        	"manguto\\cms3\\lib\\": "lib/",
+        	"manguto\\cms3\\gms\\": "gms/",        	
+        	"manguto\\cms3\\model\\": "model/",        	
+        	"manguto\\cms3\\repository\\": "repository/"        	
+    	}
+	},    
     "minimum-stability": "dev"
 }
-
-
-
 
     
