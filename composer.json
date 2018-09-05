@@ -18,7 +18,7 @@
     	"psr-4": {        
         	"manguto\\cms3\\lib\\": "lib/",
         	"manguto\\cms3\\gms\\": "gms/",        	
-        	"manguto\\cms3\\model\\": "model/",        	
+        	"manguto\\cms3\\model\\": "model/",    	
         	"manguto\\cms3\\repository\\": "repository/"        	
     	}
 	},    
