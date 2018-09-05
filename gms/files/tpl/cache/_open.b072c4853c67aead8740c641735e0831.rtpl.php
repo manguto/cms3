@@ -1,0 +1,29 @@
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title><?php echo SIS_ABREV; ?> - <?php echo SIS_NAME; ?></title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="/res/bootstrap/css/bootstrap.min.css">
+	<!-- General CSS -->
+    <link rel="stylesheet" href="/res/general/css/style.css">
+    <!-- Site/Admin Custom CSS -->
+    <link rel="stylesheet" href="/res/site/css/style.css">
+    <link rel="stylesheet" href="/res/admin/css/style.css">
+    
+    <!-- jQuery Scripts -->
+	<script src="/res/general/js/jquery-3.3.1.min.js"></script>	
+	<!-- Popper Scripts (needed by Bootstrap) -->
+	<script src="/res/general/js/popper.min.js"></script>
+	<!-- Bootstrap Scripts -->
+	<script src="/res/bootstrap/js/bootstrap.min.js"></script>	
+	<!-- Gerenal Scripts -->
+	<script src="/res/general/js/scripts.js"></script>
+	<!-- Site/Admin Custom Scripts -->
+	<script src="/res/site/js/scripts.js"></script>
+	<script src="/res/admin/js/scripts.js"></script>
+    
+</head>
+<body>

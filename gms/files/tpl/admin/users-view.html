@@ -1,0 +1,33 @@
+{include="../html/_open"} {include="_header"}
+<section>
+	{include="../general/_section_top"}
+	<div class="container">
+		<h2>Visualizar Usuário</h2>
+		
+			<div class='form-group'>
+				<label for="name">Nome</label>
+				<input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" value="{$user.name}" disabled="disabled">
+			</div>
+			<div class='form-group'>
+				<label for="login">Login</label>
+				<input type="text" class="form-control" id="login" name="login" placeholder="Digite o login" value="{$user.login}" disabled="disabled">
+			</div>
+			<div class='form-group'>
+				<label for="email">E-mail</label>
+				<input type="email" class="form-control" id="email" name="email" placeholder="Digite o e-mail" value="{$user.email}" disabled="disabled">
+			</div>
+			<div class="form-group">
+				<label for="phone">Telefone</label>
+				<input type="tel" class="form-control" id="phone" name="phone" placeholder="Digite o telefone aqui" value="{$user.phone}" disabled="disabled">
+			</div>
+			<div class='form-group'>
+				<label>
+					<input type="checkbox" name="adminzoneaccess" value="{$user.adminzoneaccess}" {if="$user.adminzoneaccess == 1"}checked{/if} disabled="disabled">
+					Acesso de Administrador
+				</label>
+			</div>
+			<a href="/admin/users" class="btn btn-primary">Voltar</a>
+		
+	</div>
+</section>
+{include="_footer"} {include="../html/_close"}

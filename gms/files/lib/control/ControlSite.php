@@ -1,0 +1,87 @@
+<?php
+namespace lib\control;
+
+use lib\view\ViewSite;
+
+class ControlSite extends Control
+{
+
+    static function Run($app)
+    {
+        $app->get('/', function () {
+            ControlSite::index();
+        });
+
+        // ================================================ register
+        $app->get('/register', function () {    
+            ControlSiteRegister::get_register();    
+        });
+        $app->post('/register', function () {
+            ControlSiteRegister::post_register();
+        });
+
+        // ================================================ login
+        $app->get('/login', function () {
+            ControlSiteLogin::get_login();
+        });
+        $app->post('/login', function () {
+            ControlSiteLogin::post_login();
+        });
+        $app->get('/logout', function () {
+            ControlSiteLogin::get_logout();
+        });
+
+        // ================================================ home
+        $app->get('/home', function () {
+            ControlSite::home();
+        });
+
+        // ================================================ profile
+        $app->get('/profile', function () {
+            ControlSiteProfile::get_profile();
+        });
+        $app->post('/profile', function () {
+            ControlSiteProfile::post_profile();
+        });
+        $app->get('/profile/change-password', function () {
+            ControlSiteProfile::get_profile_change_password();
+        });
+        $app->post('/profile/change-password', function () {
+            ControlSiteProfile::post_profile_change_password();
+        });
+
+        // ================================================ forgot
+        $app->get('/forgot', function () {
+            ControlSiteForgot::get_forgot();
+        });
+        $app->post("/forgot", function () {
+            ControlSiteForgot::post_forgot();
+        });
+        $app->get('/forgot/sent', function () {
+            ControlSiteForgot::get_forgot_sent();
+        });
+        $app->get('/forgot/reset', function () {
+            ControlSiteForgot::get_forgot_reset();
+        });
+        $app->post('/forgot/reset', function () {
+            ControlSiteForgot::post_forgot_reset();
+        });
+    }
+
+    //================================================================================= MAIN ROUTES
+    //================================================================================= MAIN ROUTES
+    //================================================================================= MAIN ROUTES
+    
+    static private function index()
+    {
+        ViewSite::index();
+    }
+
+    static private function home()
+    {
+        Control::LoggedZone();
+        ViewSite::home();
+    }
+}
+
+?>

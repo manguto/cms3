@@ -1,0 +1,24 @@
+{if="checkSuccess() || checkWarning() || checkError()"}
+<script>
+	var tempo_ocultar = 5*1000; //seg
+	var tempo_efeito = 3*1000; //seg
+	setTimeout(function() {
+		$('.process-results').fadeOut(tempo_efeito);		
+	}, tempo_ocultar);
+</script>
+{/if}
+<div class="container" id="process-results">
+	<div class="row">
+		<div class="col-12 process-results">			
+			<div class="row">
+				<div class="col-12 alert alert-danger mb-4 p-3" style="background:#f00; display:{if="checkError()"}block{else}none{/if};">{function="getError()"}</div>
+			</div>			
+			<div class="row">
+				<div class="col-12 alert alert-warning mb-4 p-3" style="background:#fd0; display:{if="checkWarning()"}block{else}none{/if};">{function="getWarning()"}</div>
+			</div>			
+			<div class="row">
+				<div class="col-12 alert alert-success mb-4 p-3" style="background:#0c0; display:{if="checkSuccess()"}block{else}none{/if};">{function="getSuccess()"}</div>
+			</div>			
+		</div>		
+	</div>
+</div>

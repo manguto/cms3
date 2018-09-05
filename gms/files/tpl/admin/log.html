@@ -1,0 +1,63 @@
+{include="../html/_open"} {include="_header"}
+<section>
+	{include="../general/_section_top"}
+	<div class="pl-5 pr-5  mb-3">
+		<div class='row'>
+			<div class='col-12'>
+				<h1 class=''>LOGs do Sistema</h1>
+			</div>
+		</div>
+	</div>
+		
+	<div class="pl-5 pr-5  mb-3">
+		<div class='row'>
+			<div class='col-12'>
+				<h2>Registros de Hoje</h2>
+			</div>
+		</div>						
+		{loop="$log_hoje"}
+		<div class='row pt-1 pb-2 mt-2' style=''>
+			<div class='col-12 float-left'>
+				<a href='{$value.filename}' target="_blank" class='btn btn-sm btn-outline-danger mb-2' title='Clique para visualizar o arquivo completo'>{$value.desc}</a>
+				<div class='w-100' style='height:300px; overflow: auto; padding:0 10px 10px 10px; border:solid 1px #f00; border-radius:3px; font-size:16px; color:#d00; font-family: monospace;'>
+					{autoescape="off"}
+						{$value.content}
+					{/autoescape}
+				</div>
+			</div>
+		</div>
+		{/loop}
+	</div>
+	
+	<div class="pl-5 pr-5  mb-3">
+		<div class='row'>
+			<div class='col-12'>
+				<h2>Registros Gerais</h2>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-12'>
+				<ul>
+				{loop="$log_geral"}
+					<li>
+						<a href='{$value.filename}' target="_blank">{$value.desc}</a><br/>
+					</li>
+				{/loop}
+				</ul>				
+			</div>
+		</div>
+	</div>
+	
+</section>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	setTimeout(function(){
+		document.location='/transportes/admin/log';
+	},60000);
+});
+
+</script>
+
+{include="_footer"} {include="../html/_close"}

@@ -1,0 +1,366 @@
+<?php
+namespace lib\model;
+
+use manguto\model\Model;
+use manguto\lib\ProcessResult;
+use manguto\lib\Safety;
+use manguto\lib\Mailer;
+use Rain\Tpl\Exception;
+use manguto\repository\Repository;
+
+class User extends Repository
+{
+    const SESSION = "User";
+
+    const FORGOT_EMAIL = "UserEmail";
+
+    //const FORGOT_SECRET_KEY = "1234567890123456";
+
+    /*public static function verifyLogin($adminzoneaccess = true)
+    {
+        if (User::checkUserLoggedAndAllowed($adminzoneaccess) == false) {
+            if ($adminzoneaccess) {
+                headerLocation('/admin/login');
+            } else {
+                headerLocation('/login');
+            }
+            exit();
+        }
+    }*/
+
+    public static function checkUserLogged(): bool
+    {
+        if (! isset($_SESSION[SIS_ABREV][User::SESSION]) || ! $_SESSION[SIS_ABREV][User::SESSION] || ! (int) $_SESSION[SIS_ABREV][User::SESSION]["userid"] > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static function checkUserLoggedAndAllowed(bool $adminzoneaccess = true): bool
+    {
+        if (User::checkUserLogged($adminzoneaccess)) {
+            if ($adminzoneaccess === true) {
+                if ((bool) $_SESSION[SIS_ABREV][User::SESSION]['adminzoneaccess'] == true) {
+                    $return = true;
+                } else {
+                    $return = false;
+                }
+            } else {
+                $return = true;
+            }
+        } else {
+            $return = false;
+        }
+        return $return;
+    }
+
+    static public function initialize()
+    {   
+        
+        
+        if (Repository::getRepositoryLength('user') == 0) {
+            // ---------------------------------------------------
+            $admin = new User();
+            $admin->setname('Administrador');
+            $admin->setlogin('admin');
+            $admin->setpassword(self::password_crypt('admin'));
+            $admin->setemail('admin@admin.com');            
+            $admin->setadminzoneaccess(1);
+            $admin->save();
+            // ---------------------------------------------------
+        }
+    }
+
+    public static function login($login, $password)
+    {
+        // deb($login,0); deb($password,0); deb(User::password_crypt($password));
+        //cifragem de password para comparacao
+        $password = User::password_crypt($password);
+        //veirifcacao do repositorio do susuarios
+        User::initialize();
+        //die('++');
+        $conditions = " \$login=='$login' && \$password=='$password' ";
+        //deb($conditions);
+        $results = Repository::getRepository('user',$conditions);        
+        //deb($results);
+        if (count($results) === 0) {
+            throw new \Exception("Usuário inexistente ou senha inválida.");
+        }
+        //deb($results);
+        $user = array_shift($results);
+        //deb($user);
+        User::setSessionUser($user);
+    }
+
+    static function password_crypt(string $passwordRaw)
+    {
+        // return password_hash($passwordRaw,PASSWORD_DEFAULT,["cost"=>12]);
+        return md5($passwordRaw);
+    }
+
+    public static function setSessionUser(Model $user)
+    {
+        $_SESSION[SIS_ABREV][User::SESSION] = $user->getData();
+    }
+
+    public static function getSessionUser()
+    {
+        $user = false;
+        if (User::checkUserLogged()) {
+            $user_array = $_SESSION[SIS_ABREV][User::SESSION];
+            try {
+                //deb($user_array);
+                $user = new User($user_array['userid']);
+            } catch (\Exception $e) {
+                ProcessResult::setError($e);
+                User::logout();
+                headerLocation('/login');
+                exit();
+            }
+        }
+        return $user;
+    }
+
+    public static function logout()
+    {
+        unset($_SESSION[SIS_ABREV][User::SESSION]);
+    }
+
+    public function checkLoginExist(): bool
+    {     
+        //$result = LocalDatabase::run(" SELECT * FROM user WHERE login='".$this->getlogin()."' ");        
+        $result = Repository::getRepository('user'," \$login=='".$this->getlogin()."' ");        
+        //deb($result);
+        if (sizeof($result) == 1) {
+            $user = array_shift($result);
+            if ($this->getId() == $user->getId()) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (sizeof($result) == 0) {
+            return false;
+        } else {
+            throw new Exception("Existem mais de um usuário com o mesmo login. Contate o administrador.");
+        }
+    }
+
+    public function checkEmailExist(): bool
+    {
+        //$result = LocalDatabase::run(" SELECT * FROM user WHERE email='".$this->getemail()."' ");
+        $result = Repository::getRepository('user'," \$email=='".$this->getemail()."' ");
+        //deb($result);
+        if (sizeof($result) == 1) {
+            $user = array_shift($result);
+            if ($this->getId() == $user->getId()) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (sizeof($result) == 0) {
+            return false;
+        } else {
+            throw new Exception("Existem mais de um usuário com o mesmo login. Contate o administrador.");
+        }
+    }
+
+    public static function getForgot($email, $adminzoneaccess = true)
+    {
+        // deb($email);
+        User::setForgotEmail($email);
+        
+        //$results = LocalDatabase::run(" SELECT * FROM user WHERE email='$email' ");
+        $results = Repository::getRepository('user'," \$email=='$email' ");        
+        // deb($results);
+        
+        if (count($results) == 0) {
+            throw new \Exception("Não foi possível recuperar a sua senha.");
+        } else {
+            
+            $user = array_shift($results);
+            // deb($user);
+            // if(false)$user = new User();
+            $userPasswordRecoveries = new UserPasswordRecoveries();
+            $userPasswordRecoveries->setuserid($user->getIdValue());
+            $userPasswordRecoveries->setip($_SERVER["REMOTE_ADDR"]);
+            $userPasswordRecoveries->setdeadline(time() + UserPasswordRecoveries::deadline);
+            $userPasswordRecoveries->setdatetime(time());
+            // deb($userPasswordRecoveries);
+            $userPasswordRecoveries->save();
+            // deb($userPasswordRecoveries);
+            
+            // ==========================================================================================================
+            // ========================================== cifragem =====================================================
+            // ==========================================================================================================
+            $recoveryid_encrypted = Safety::encrypt($userPasswordRecoveries->getIdValue());
+            // deb($recoveryid_encrypted,0); deb(Safety::decrypt($recoveryid_encrypted));
+            // ==========================================================================================================
+            // ==========================================================================================================
+            // ==========================================================================================================
+            
+            if ($adminzoneaccess === true) {
+                $link = SIS_URL . "/admin/forgot/reset?code=" . $recoveryid_encrypted;
+            } else {
+                $link = SIS_URL . "/forgot/reset?code=" . $recoveryid_encrypted;
+            }
+            // deb($link);
+
+            $mailer = new Mailer($user->getemail(), $user->getname(), "Redefinição de senha do(a) " . SIS_NAME, "forgot", array(
+                "name" => $user->getname(),
+                "link" => $link
+            ));
+            
+            if (! $mailer->send()) {
+                throw new Exception("Não foi possível enviar o e-mail de recuperação.<br/>Aguarde alguns instantes e tente novamente.");
+            }
+            
+            return $user->getData();
+        }
+    }
+
+    public static function validForgotDecrypt(string $recoveryid_encrypted): Model
+    {
+        
+        // deb($recoveryid_encrypted);
+        // ==========================================================================================================
+        // ========================================== decifragem ====================================================
+        // ==========================================================================================================
+        $recoveryid = Safety::decrypt($recoveryid_encrypted);
+        // ==========================================================================================================
+        // ==========================================================================================================
+        // ==========================================================================================================
+        // deb($recoveryid);
+        
+        //$results = LocalDatabase::run(" SELECT * FROM userpasswordrecoveries WHERE userpasswordrecoveriesid='$recoveryid' ");
+        $results = Repository::getRepository('userpasswordrecoveries'," \$userpasswordrecoveriesid=='$recoveryid' "); 
+        //deb($results);
+        
+        if (count($results) === 0) {
+            throw new \Exception("Recuperação inválida (identificador incorreto ou senha já recuperada).");
+        } else {
+            $userpasswordrecoveries = array_shift($results);
+            if ($userpasswordrecoveries->DeadlineValid()) {
+                $userid = $userpasswordrecoveries->getuserid();
+                $user = new User($userid);
+                $user->setrecoveryid($recoveryid);
+                $user->save();
+            } else {
+                throw new \Exception("Recuperação inválida (intervalo máximo de tempo ultrapassado).");
+            }
+        }
+        return $user;
+    }
+
+    public static function setForgotUsed($userpasswordrecoveriesid)
+    {
+        $upr = new UserPasswordRecoveries($userpasswordrecoveriesid);
+        // deb($upr,0);
+        $upr->setdeadline(time());
+        // deb($upr,0);
+        $upr->save();
+        // deb($upr);
+    }
+
+    // ------------------------------------------------------------- ForgotEmail
+    public static function setForgotEmail($email)
+    {
+        // deb($msg);
+        $_SESSION[SIS_ABREV][User::FORGOT_EMAIL] = $email;
+    }
+
+    public static function getForgotEmail()
+    {
+        $msg = (isset($_SESSION[SIS_ABREV][User::FORGOT_EMAIL]) && $_SESSION[SIS_ABREV][User::FORGOT_EMAIL] !== NULL) ? $_SESSION[SIS_ABREV][User::FORGOT_EMAIL] : '';
+        User::clearForgotEmail();
+        return $msg;
+    }
+
+    public static function clearForgotEmail()
+    {
+        // deb("CLEAR!",0);
+        unset($_SESSION[SIS_ABREV][User::FORGOT_EMAIL]);
+    }
+    
+    
+    /**
+     * Verifica se os campos informados ($_POST) podem ser utilizados em um usuario para criacao ou atualizacao
+     * @throws \Exception
+     */
+    public function verifyFieldsToCreateUpdate(){
+        
+        // name
+        if ($this->getname() == '') {
+            throw new \Exception("Preencha o seu nome.");
+        }
+        // email
+        if ($this->getemail() == '') {
+            throw new \Exception("Preencha o seu email.");
+        }
+        // login
+        if ($this->getlogin() == '') {
+            throw new \Exception("Preencha o seu login.");
+        }
+        
+        // login exists
+        if ($this->checkLoginExist()) {
+            throw new \Exception("O Login '<b>".$this->getLogin()."</b>' já se encontra em uso.<br/> Preencha outro valor e tente novamente.");
+        }
+        // email exists
+        if ($this->checkEmailExist()) {
+            throw new \Exception("O E-mail '<b>".$this->getEmail()."</b>' já se encontra em uso.<br/> Preencha outro valor e tente novamente.");            
+        }
+                
+        // password
+        if ($this->getpassword() == '') {
+            throw new \Exception("Preencha a sua senha.");            
+        }
+        
+    }
+    
+    
+    public function verifyPasswordUpdate($current_pass,$new_pass,$new_pass_confirm){
+        { // --- ERROR VERIFICATION
+            if ($current_pass === '') {
+                throw new \Exception('Digite a SENHA ATUAL.');                
+            }
+            
+            if ($new_pass === '') {
+                throw new \Exception('Digite a NOVA SENHA.');                
+            }
+            
+            if ($new_pass_confirm === '') {
+                throw new \Exception('Digite a CONFIRMAÇÃO da nova senha.');                
+            }
+            
+            if ($new_pass !== $new_pass_confirm) {
+                throw new \Exception('A CONFIRMAÇÃO da nova senha NÃO CONFERE.');                
+            }
+            
+            if (User::password_crypt($new_pass) === $this->getPassword()) {
+                throw new \Exception('A sua nova senha deve ser DIFERENTE da atual.');                
+            }
+            
+            if (User::password_crypt($current_pass) !== $this->getPassword()) {
+                throw new \Exception('A SENHA ATUAL não está correta.');                
+            }
+        }
+    }
+    
+    static function checkUserLoggedAdmin()
+    {
+        if (User::checkUserLogged()) {
+            $user = User::getSessionUser();
+            return intval($user->getadminzoneaccess()) == 0 ? false : true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+    
+    
+}
+
+
+
