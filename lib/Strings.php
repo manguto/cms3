@@ -1,5 +1,6 @@
 <?php
-namespace manguto\lib;
+namespace manguto\cms3\lib;
+
 
 class Strings
 {

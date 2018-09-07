@@ -2,7 +2,7 @@
 namespace lib\control;
 
 use lib\model\User;
-use manguto\lib\ProcessResult;
+use manguto\cms3\lib\ProcessResult;
 use lib\view\ViewSiteProfile;
 
 class ControlSiteProfile extends ControlSite

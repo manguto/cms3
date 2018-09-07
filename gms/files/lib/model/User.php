@@ -1,12 +1,12 @@
 <?php
 namespace lib\model;
 
-use manguto\model\Model;
-use manguto\lib\ProcessResult;
-use manguto\lib\Safety;
-use manguto\lib\Mailer;
+use manguto\cms3\model\Model;
+use manguto\cms3\lib\ProcessResult;
+use manguto\cms3\lib\Safety;
+use manguto\cms3\lib\Mailer;
 use Rain\Tpl\Exception;
-use manguto\repository\Repository;
+use manguto\cms3\repository\Repository;
 
 class User extends Repository
 {

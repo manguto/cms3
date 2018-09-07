@@ -1,7 +1,7 @@
 <?php
 namespace lib\model;
 
-use manguto\repository\Repository;
+use manguto\cms3\repository\Repository;
 
 class UserPasswordRecoveries extends Repository
 {   

@@ -1,9 +1,9 @@
 <?php
 session_start();
 require_once ("vendor/autoload.php");
-use manguto\lib\Arquivos;
-use manguto\lib\Javascript;
-use manguto\lib\Strings;
+use manguto\cms3\lib\Arquivos;
+use manguto\cms3\lib\Javascript;
+use manguto\cms3\lib\Strings;
 
 try {
     {//configuracoes

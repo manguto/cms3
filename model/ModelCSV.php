@@ -1,6 +1,6 @@
 <?php
 
-namespace manguto\model;
+namespace manguto\cms3\model;
 
 class ModelCSV{
     

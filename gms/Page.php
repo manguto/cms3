@@ -1,9 +1,9 @@
 <?php
 
-namespace manguto\gms;
+namespace manguto\cms3\gms;
 
 use Rain\Tpl;
-use manguto\lib\Arquivos;
+use manguto\cms3\lib\Arquivos;
 
 
 /**

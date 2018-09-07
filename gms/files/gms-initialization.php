@@ -1,6 +1,6 @@
 <?php
 
-use manguto\gms\PageHelp;
+use manguto\cms3\gms\PageHelp;
 
 PageHelp::Initialization();
 

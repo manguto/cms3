@@ -1,7 +1,7 @@
 <?php
-namespace manguto\model;
+namespace manguto\cms3\model;
 
-use manguto\lib\ServerHelp;
+use manguto\cms3\lib\ServerHelp;
 
 class Model
 {

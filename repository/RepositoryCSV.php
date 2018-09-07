@@ -1,6 +1,6 @@
 <?php
 
-namespace manguto\repository;
+namespace manguto\cms3\repository;
 
 class RepositoryCSV{
     

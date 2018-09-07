@@ -1,11 +1,11 @@
 <?php
-namespace manguto\repository;
+namespace manguto\cms3\repository;
 
-use manguto\model\Model;
-use manguto\lib\Arquivos;
-use manguto\lib\Diretorios;
-use manguto\lib\Strings;
-use manguto\lib\Log;
+use manguto\cms3\model\Model;
+use manguto\cms3\lib\Arquivos;
+use manguto\cms3\lib\Diretorios;
+use manguto\cms3\lib\Strings;
+use manguto\cms3\lib\Log;
 
 class Repository extends Model
 {

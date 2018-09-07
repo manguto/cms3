@@ -3,7 +3,7 @@ namespace lib\control;
 
 use lib\model\User;
 use Rain\Tpl\Exception;
-use manguto\lib\ProcessResult;
+use manguto\cms3\lib\ProcessResult;
 use lib\view\ViewSiteRegister;
 
 class ControlSiteRegister extends ControlSite

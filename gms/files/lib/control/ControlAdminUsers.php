@@ -2,8 +2,8 @@
 namespace lib\control;
 
 use lib\model\User;
-use manguto\lib\ProcessResult;
-use manguto\repository\Repository;
+use manguto\cms3\lib\ProcessResult;
+use manguto\cms3\repository\Repository;
 use lib\view\ViewAdminUsers;
 
 class ControlAdminUsers extends ControlAdmin

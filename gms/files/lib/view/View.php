@@ -1,8 +1,8 @@
 <?php
 namespace lib\view;
 
-use manguto\gms\Page;
-use manguto\gms\PageAdmin;
+use manguto\cms3\gms\Page;
+use manguto\cms3\gms\PageAdmin;
 
 class View
 {    
