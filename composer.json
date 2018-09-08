@@ -22,7 +22,10 @@
         	"manguto\\cms3\\repository\\": "repository/"        	
     	},
     	"files": [
-    		"gms/GMSFunctions.php"
+    		"gms/GMSFunctions.php",
+    		"lib/Functions.php",
+    		"model/ModelFunctions.php",
+    		"repository/RepositoryFunctions.php"
     	]
 	},    
     "minimum-stability": "dev"

@@ -17,7 +17,7 @@ class RepositoryCSV{
      * @return string
      */
     static function ArrayToCSV(array $array):string{
-        //Help::deb($array);
+
         $lines = [];
         if(sizeof($array)>0){
             
@@ -41,7 +41,7 @@ class RepositoryCSV{
             {//BODY
 
                 foreach ($array as $lineValues) {
-                    //Help::deb($lineValues);
+
                     if(is_array($lineValues)){                        
                         //pula as linhas vazias
                         if(trim(implode('', $lineValues))==''){

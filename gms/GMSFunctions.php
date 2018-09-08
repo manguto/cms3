@@ -1,55 +1,6 @@
 <?php
-use manguto\cms3\lib\Help;
 use lib\model\User;
 use manguto\cms3\lib\ProcessResult;
-
-// =============================================================================================================================================
-// =============================================================================================================================================
-// ========================================= GENERAL FUNCTIONS =======================================================================================
-// =============================================================================================================================================
-// =============================================================================================================================================
-/**
- * Funcao para "debugar" albuma variavel
- *
- * @param
- *            $var
- * @param bool $die
- * @param bool $backtrace
- */
-function deb($var, bool $die = true, bool $backtrace = true)
-{
-    Help::deb($var, $die, $backtrace);
-}
-
-function exceptionShow($e,$echo=false){
-    $return = '<pre><br/>';
-    $return .= '<b>'.nl2br($e->getMessage()).'</b><br/><br/>';
-    $return .= $e->getFile() . ' (' . $e->getLine() . ')<br/><br/>';
-    $return .= nl2br($e->getTraceAsString()).'<br/><br/>';
-    if($echo){
-        echo $return;
-    }else{
-        return $return;
-    }    
-}
-
-// =============================================================================================================================================
-// =============================================================================================================================================
-// ======================================== STATIC CLASS METHOD CALLER ========================================================================
-// =============================================================================================================================================
-// =============================================================================================================================================
-/**
- * Get STATIC CLASS METHOD
- *
- * @param string $className
- * @param string $methodName
- * @return
- */
-function getStaticClassMethod(string $className, string $methodName, $p1 = NULL, $p2 = NULL, $p3 = NULL, $p4 = NULL, $p5 = NULL)
-{
-    $return = $className::$methodName($p1, $p2, $p3, $p4, $p5);
-    return $return;
-}
 
 // =============================================================================================================================================
 // =============================================================================================================================================
@@ -58,8 +9,7 @@ function getStaticClassMethod(string $className, string $methodName, $p1 = NULL,
 // =============================================================================================================================================
 
 {
-
-    // ---------------------------------- USER & SESSION
+ // ---------------------------------- USER & SESSION
     function checkUserLogged()
     {
         return User::checkUserLogged();
@@ -83,8 +33,7 @@ function getStaticClassMethod(string $className, string $methodName, $p1 = NULL,
 }
 
 {
-
-    // ---------------------------- erro / success / warning
+ // ---------------------------- erro / success / warning
     function checkError()
     {
         return ProcessResult::CHECK('error');
@@ -116,29 +65,29 @@ function getStaticClassMethod(string $className, string $methodName, $p1 = NULL,
     }
 }
 
-{//redirecitoning
-    
+{
+
+    // redirecitoning
     function headerLocation($url)
     {
         header('Location: ' . ROOT_LOCATION . $url);
     }
-    
-    function headerLocationPost(string $URLAbsolute,array $variables=[])
+
+    function headerLocationPost(string $URLAbsolute, array $variables = [])
     {
         $url = ROOT_LOCATION . $URLAbsolute;
         
         $inputs = '';
         foreach ($variables as $key => $value) {
             
-            //ajuste no caso de parametros informados em array (checkboxes...)
-            if(!is_array($value)){
+            // ajuste no caso de parametros informados em array (checkboxes...)
+            if (! is_array($value)) {
                 $inputs .= "$key: <input type='text' name='$key' value='$value' class='form-control mb-2' style='display:none;'>";
-            }else{
-                $key = $key.'[]';
-                foreach ($value as $v){
+            } else {
+                $key = $key . '[]';
+                foreach ($value as $v) {
                     $inputs .= "$key: <input type='text' name='$key' value='$v' class='form-control mb-2' style='display:none;'>";
                 }
-                
             }
         }
         
@@ -162,13 +111,9 @@ function getStaticClassMethod(string $className, string $methodName, $p1 = NULL,
                     (function() {
                         document.getElementById('postRedirect').submit();
                     })();
-                </script>
-                
-";
-                                    echo $html;
+                </script>";
+        echo $html;
     }
-    
 }
-
 
 ?>
