@@ -1,18 +1,18 @@
 <?php
 namespace lib\view;
 
-use manguto\cms3\gms\Page;
-use manguto\cms3\gms\PageAdmin;
+use manguto\cms3\gms\GMSPage;
+use manguto\cms3\gms\GMSPageAdmin;
 
 class View
 {    
     static protected function Page(string $templateFilename,array $parameters=[]){
-        $page = new Page();
+        $page = new GMSPage();
         $page->setTpl($templateFilename,$parameters);
     }    
     
     static protected function PageAdmin(string $templateFilename,array $parameters=[]){
-        $page = new PageAdmin();
+        $page = new GMSPageAdmin();
         $page->setTpl($templateFilename,$parameters);
     }
 }

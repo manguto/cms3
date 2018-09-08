@@ -11,7 +11,7 @@ use manguto\cms3\lib\Arquivos;
  * https://github.com/feulf/raintpl/wiki/Documentation-for-web-designers * 
  * @author Marcos Torres *
  */
-class Page{
+class GMSPage{
 
 	private $tpl;
 	private $tpl_dir;

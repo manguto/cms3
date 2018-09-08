@@ -3,7 +3,7 @@ namespace lib\control;
 
 use lib\model\User;
 use manguto\cms3\lib\ProcessResult;
-use manguto\cms3\gms\Page;
+use manguto\cms3\gms\GMSPage;
 use lib\model\UserPasswordRecoveries;
 use lib\view\ViewSiteForgot;
 
@@ -48,7 +48,7 @@ class ControlSiteForgot extends ControlSite
 
         try {
             $user = User::validForgotDecrypt($code);
-            $page = new Page();
+            $page = new GMSPage();
             $page->setTpl("forgot-reset", [
                 'form_action' => '/forgot/reset',
                 'name' => $user->getname(),

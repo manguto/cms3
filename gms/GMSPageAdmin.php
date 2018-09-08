@@ -2,7 +2,7 @@
 
 namespace manguto\cms3\gms;
 
-class PageAdmin extends Page
+class GMSPageAdmin extends GMSPage
 {
 
     public function __construct($opts = array(), $tpl_dir = '/tpl/admin/')

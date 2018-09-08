@@ -20,7 +20,10 @@
         	"manguto\\cms3\\gms\\": "gms/",        	
         	"manguto\\cms3\\model\\": "model/",    	
         	"manguto\\cms3\\repository\\": "repository/"        	
-    	}
+    	},
+    	"files": [
+    		"manguto/cms3/gms/GMSFunctions.php"
+    	]
 	},    
     "minimum-stability": "dev"
 }
