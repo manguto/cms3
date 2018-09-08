@@ -75,7 +75,7 @@ function deb($var, bool $die = true, bool $backtrace = true)
     
     // backtrace show?
     if ($backtrace) {
-        $backtrace = self::get_backtrace();
+        $backtrace = get_backtrace();
         $backtrace = str_replace("'", '"', $backtrace);
     } else {
         $backtrace = '';
@@ -103,7 +103,7 @@ function deb_code($var, bool $die = true, bool $backtrace = true)
     
     // backtrace show?
     if ($backtrace) {
-        $backtrace = self::get_backtrace();
+        $backtrace = get_backtrace();
     } else {
         $backtrace = '';
     }
