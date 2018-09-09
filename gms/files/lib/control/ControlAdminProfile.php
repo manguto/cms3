@@ -12,7 +12,7 @@ class ControlAdminProfile extends ControlAdmin
     {
         Control::LoggedAdminZone();
         $user = User::getSessionUser();
-        ViewAdminProfile::get_profile($user);
+        ViewAdminProfile::get_admin_profile($user);
     }
 
     static function post_admin_profile()
