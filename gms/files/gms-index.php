@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once ("vendor/autoload.php");
-require_once 'gms-configurations.php';
+require_once 'configurations.php';
 
 use Slim\Slim;
 use lib\control\Control;
