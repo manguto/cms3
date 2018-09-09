@@ -110,6 +110,8 @@ class Arquivos {
 		// ---verificar diretorio
 		$caminho = self::obterCaminho ( $filename );
 		Diretorios::mkdir ( $caminho );
+		// ---verificar conteudo
+		$data = $data=='' ? ' '.chr(10) : $data;
 		// ---salvar o arquivo
 		if (! file_put_contents ( $filename, $data,$flags)) {
 		    if($throwException){

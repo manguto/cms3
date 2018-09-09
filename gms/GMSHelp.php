@@ -3,6 +3,10 @@
 namespace manguto\cms3\gms;
 
 
+use manguto\cms3\lib\Diretorios;
+use manguto\cms3\lib\ServerHelp;
+use manguto\cms3\lib\Arquivos;
+
 class GMSHelp{
     
     
@@ -70,8 +74,82 @@ class GMSHelp{
     //##################################################################################################################################################################
     //##################################################################################################################################################################
 
-    static function Setup(){
+    static function Setup($echo=true){
         
+        try {
+            
+            $relat = [];
+            $relat[] = "<hr/>";
+            $relat[] = "<h1>SETUP</h1>";
+            $relat[] = "<h2>Procedimento de instalação do General Managemente System (GMS) inicializado</h2>";
+            $relat[] = "<br/>";
+            $relat[] = "<br/>";            
+            //config
+            $originFilesPath = ServerHelp::fixds('vendor/manguto/cms3/gms/files');
+            
+            //get folders/files structure to reply
+            $originFiles = Diretorios::obterArquivosPastas($originFilesPath, true, true, true);
+            $relat[] = "Foram encontrados '".sizeof($originFiles)."' pastas/arquivos.";
+            //deb($foldersFiles);
+            //criacao de pastas e arquivos
+            $relat[] = "<ol>";
+            foreach ($originFiles as $originFile){
+                $relat[] = "<li>$originFile";
+                $destinationFilePath = str_replace($originFilesPath.DIRECTORY_SEPARATOR,'',$originFile);
+                if(is_dir($originFile)){
+                    if(!file_exists($destinationFilePath)){
+                        Diretorios::mkdir($destinationFilePath);
+                        $relat[] = " - Diretório '$destinationFilePath' criado com sucesso!";
+                    }
+                }else if(is_file($originFile)){
+                    if(!file_exists($destinationFilePath)){
+                        $data = Arquivos::obterConteudo($originFile);
+                        Arquivos::escreverConteudo('.'.DIRECTORY_SEPARATOR.$destinationFilePath, $data);
+                        $relat[] = " - Arquivo '$destinationFilePath' criado com sucesso!";
+                    }
+                }else{
+                    throw new \Exception("Tipo de arquivo inadequado (?).");
+                }
+                $relat[] = "</li>";
+            }
+            {//troca dos arquivos de index
+                {//setup file
+                    $filename = 'setup.php';
+                    $content = Arquivos::obterConteudo('index.php');
+                    Arquivos::escreverConteudo($filename, $content);
+                }                
+                {//index file
+                    $filename = 'index.php';
+                    $content = Arquivos::obterConteudo('gms-index.php');
+                    Arquivos::escreverConteudo($filename, $content);
+                }                
+                {//gms-index delete
+                    $filename = 'gms-index.php';                    
+                    Arquivos::excluir($filename);
+                }
+                
+            }
+            
+            $relat[] = "</ol>";
+            $relat[] = "<h3>Procedimento de SETUP finalizado com sucesso!</h3>";
+            $relat[] = "<hr/>";            
+            $relat[] = "<a href='index.php' title='Clique aqui para acessar a nova plataforma.'>ACESSO ao SISTEMA</a>";
+            $relat[] = "<br/>";
+            $relat[] = "<br/>";
+            $relat[] = "<br/>";
+            $relat[] = "<br/>";
+            {//relat
+                $relat=implode(chr(10), $relat);
+                if($echo){
+                    echo $relat;
+                }else{
+                    return $relat;
+                }
+            }
+        } catch (\Exception $e) {
+            echo exceptionShow($e);
+        }
+         
     }
     
     //##################################################################################################################################################################

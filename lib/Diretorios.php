@@ -85,12 +85,14 @@ class Diretorios {
 	 *	 
 	 */
 	static function mkdir($pathname, $recursivo = true) {
-		if (! file_exists ( $pathname )) {
-			$return = mkdir ( $pathname, 0777, $recursivo );
-			if (! $return) {
-				throw new \Exception ( "Não foi possível criar o diretório '$pathname'." );
-			}
-		}
+	    if(trim($pathname)!=''){
+	        if (! file_exists ( $pathname )) {
+	            $return = mkdir ( $pathname, 0777, $recursivo );
+	            if (! $return) {
+	                throw new \Exception ( "Não foi possível criar o diretório '$pathname'." );
+	            }
+	        }
+	    }		
 		return true;
 	}
 	
