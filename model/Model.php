@@ -2,6 +2,7 @@
 namespace manguto\cms3\model;
 
 use manguto\cms3\lib\ServerHelp;
+use manguto\cms3\lib\Exception;
 
 class Model
 {
@@ -58,7 +59,7 @@ class Model
             // se o parametro nao existir, cria-o
             if (! isset($this->values[$fieldName])) {
                 $this->values[$fieldName] = null;
-                // throw new \Exception("Atributo não encontrado ou inexistente ($fieldName).");
+                // throw new Exception("Atributo não encontrado ou inexistente ($fieldName).");
             }
             if ($method == 'get') {
                 // get
@@ -68,7 +69,7 @@ class Model
                 $this->values[$fieldName] = $args[0];
             }
         } else {
-            throw new \Exception("Método não encontrado ou incorreto (model->$name).");
+            throw new Exception("Método não encontrado ou incorreto (model->$name).");
         }
     }
 

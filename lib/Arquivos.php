@@ -66,7 +66,7 @@ class Arquivos {
 	 * OBTEM O CONTEUDO (STRING) DE UM ARQUIVO
 	 * E CASO NÃO O ENCONTRE, SOLTA UMA EXCESSÃO.
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	static function obterConteudo($filename, $throwException = true) {
 		//############ log::open(__METHOD__,"Obtém o conteúdo do arquivo '$filename'.");
@@ -78,7 +78,7 @@ class Arquivos {
 				return $return;
 			}else{
 				if ($throwException === true) {
-					throw new \Exception ( "Não foi possível realizar a leitura do arquivo solicitado ('$filename')." );
+					throw new Exception ( "Não foi possível realizar a leitura do arquivo solicitado ('$filename')." );
 				} else {
 					//############ log::add("Não foi possível realizar a leitura do arquivo solicitado ('$filename').");
 					return false;
@@ -86,7 +86,7 @@ class Arquivos {
 			}
 		} else {
 			if ($throwException === true) {
-				throw new \Exception ( "Arquivo (e consequentemente seu conteúdo) não encontrado. ('$filename')." );
+				throw new Exception ( "Arquivo (e consequentemente seu conteúdo) não encontrado. ('$filename')." );
 			} else {
 				//############ log::add("Arquivo (e consequentemente seu conteúdo) não encontrado. ('$filename').");
 				return false;
@@ -103,7 +103,7 @@ class Arquivos {
 	 * @param string $filename
 	 * @param string $data
 	 * @param $flags
-	 * @throws \Exception
+	 * @throws Exception
 	 * @return bool
 	 */
 	static function escreverConteudo(string $filename,string $data,$flags=NULL,$throwException=true){
@@ -115,7 +115,7 @@ class Arquivos {
 		// ---salvar o arquivo
 		if (! file_put_contents ( $filename, $data,$flags)) {
 		    if($throwException){
-		        throw new \Exception ( "Não foi possível salvar o arquivo solicitado ($filename)." );
+		        throw new Exception ( "Não foi possível salvar o arquivo solicitado ($filename)." );
 		    }else{
 		        return false;
 		    }			
@@ -127,7 +127,7 @@ class Arquivos {
 	 * exclui um determinado arquivo
 	 * @param string $filename
 	 * @param bool $throwException
-	 * @throws \Exception
+	 * @throws Exception
 	 * @return boolean
 	 */
 	static function excluir(string $filename,bool $throwException=true) {
@@ -135,7 +135,7 @@ class Arquivos {
 		if(file_exists($filename)){
 			if(!unlink($filename)){
 			    if($throwException){
-			        throw new \Exception ( "Não foi possível excluir o arquivo solicitado ($filename)." );
+			        throw new Exception ( "Não foi possível excluir o arquivo solicitado ($filename)." );
 			    }else{
 			        return false;
 			    }				
@@ -144,7 +144,7 @@ class Arquivos {
 			}
 		}else{
 		    if($throwException){
-		        throw new \Exception ( "Arquivo não encontrado ($filename)." );
+		        throw new Exception ( "Arquivo não encontrado ($filename)." );
 		    }else{
 		        return false;
 		    }

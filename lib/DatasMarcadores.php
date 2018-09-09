@@ -42,7 +42,7 @@ class DatasMarcadores{
         
         // Limite de 1970 ou após 2037 da easter_date PHP, consulte: php.net/manual/pt_BR/function.easter-date.php
         if ($ano<=1970 || $ano>=2037 ){
-            throw new \Exception("O Ano precisa ser entre 1970 e 2037 ($ano).");
+            throw new Exception("O Ano precisa ser entre 1970 e 2037 ($ano).");
         }
         
         // Calculo da data base da PASCOA

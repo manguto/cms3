@@ -45,7 +45,7 @@ class FileViewer
                     exit();
                 }
             }
-        } catch (\Exception | \Error | \Throwable $e) {
+        } catch (\Throwable $e) {
             $echo = '<pre><br/>';
             $echo .= '<b>' . nl2br($e->getMessage()) . '</b><br/><br/>';
             $echo .= $e->getFile() . ' (' . $e->getLine() . ')<br/><br/><br/>';

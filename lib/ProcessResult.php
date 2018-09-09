@@ -11,7 +11,7 @@ class ProcessResult
      * verifica se existem mensagens do tipo informado
      *
      * @param string $type
-     * @throws \Exception
+     * @throws Exception
      * @return bool
      */
     public static function CHECK(string $type): bool
@@ -24,7 +24,7 @@ class ProcessResult
                 return false;
             }
         } else {
-            throw new \Exception("Tipo de resultado de processo incorreto ($type).");
+            throw new Exception("Tipo de resultado de processo incorreto ($type).");
         }
     }
 
@@ -67,7 +67,7 @@ class ProcessResult
         //verifica se o parametro informado eh do tipo exception ou string
         if (is_object($expection_or_message)) {            
             $msg = $expection_or_message->getMessage();            
-            Log::this(exceptionShow($expection_or_message),'EXCEPTION');
+            Log::this($expection_or_message->show(),'EXCEPTION');
         } else {
             $msg = $expection_or_message;
             Log::this($msg,'ERROR');            
@@ -95,7 +95,7 @@ class ProcessResult
         //verifica se o parametro informado eh do tipo exception ou string
         if (is_object($expection_or_message)) {
             $msg = $expection_or_message->getMessage();
-            Log::this(exceptionShow($expection_or_message),'WARNING');
+            Log::this($expection_or_message->show(),'WARNING');
         } else {
             $msg = $expection_or_message;
             Log::this($msg,'WARNING');
@@ -122,7 +122,7 @@ class ProcessResult
         //verifica se o parametro informado eh do tipo exception ou string
         if (is_object($expection_or_message)) {
             $msg = $expection_or_message->getMessage();
-            Log::this(exceptionShow($expection_or_message),'SUCCESS');
+            Log::this($expection_or_message->show(),'SUCCESS');
         } else {
             $msg = $expection_or_message;
             Log::this($msg,'SUCCESS');
@@ -150,7 +150,7 @@ class ProcessResult
     {
         /*
          * if(isset($_SESSION['ProcessResult']['Parameters'][$variableName])){
-         * throw new \Exception("Parâmetro já definido na sessão ('$variableName').");
+         * throw new Exception("Parâmetro já definido na sessão ('$variableName').");
          * }
          */
         $_SESSION['ProcessResult']['Parameters'][$variableName] = serialize($variableValue);
@@ -175,7 +175,7 @@ class ProcessResult
             }
         } else {
             $return = null;
-            // throw new \Exception("Variável não encontrada na sessão ($variableName).");
+            // throw new Exception("Variável não encontrada na sessão ($variableName).");
         }
         return $return;
     }

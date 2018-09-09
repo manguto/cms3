@@ -202,10 +202,10 @@ class Strings
             if ($sizeof == 2) {
                 $string = $string_[0];                
             } else {
-                throw new \Exception("Foram encontrados mais de um ($sizeof) delimitador direito na conteúdo informado (Delimitar Direito: '$delimiterRight').");
+                throw new Exception("Foram encontrados mais de um ($sizeof) delimitador direito na conteúdo informado (Delimitar Direito: '$delimiterRight').");
             }
         } else {
-            throw new \Exception("Foram encontrados mais de um ($sizeof) delimitador esquerdo na conteúdo informado (Delimitar Esquerdo: '$delimiterLeft').");
+            throw new Exception("Foram encontrados mais de um ($sizeof) delimitador esquerdo na conteúdo informado (Delimitar Esquerdo: '$delimiterLeft').");
         }
         return $string;
     }

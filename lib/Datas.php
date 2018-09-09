@@ -137,13 +137,13 @@ class Datas
      *
      * @param int $dayNumber
      * @param boolean $abrev
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     static function staticGetWeekDayName_(int $dayNumber, $fullName = false,$utf8_decode=false): string
     {
         if ($dayNumber < 0 || $dayNumber > 6) {
-            throw new \Exception("Número inadequado para um dia da semana [0-6]('$dayNumber').");
+            throw new Exception("Número inadequado para um dia da semana [0-6]('$dayNumber').");
         }
         $code = $fullName ? '%A' : '%a';
         if($utf8_decode){
@@ -169,7 +169,7 @@ class Datas
             }else if($size=='g'){
                 $return = strftime('%A', strtotime("Sunday +{$dayNumber} days"));
             }else{
-                throw new \Exception("Tamanho inadequado ('$size'). Tamanhos permitidos: P, M e G.");
+                throw new Exception("Tamanho inadequado ('$size'). Tamanhos permitidos: P, M e G.");
             }
             //primeira - maiuscula ----------------------------------------------------------------------------------------
             if($ucfirst){
@@ -180,7 +180,7 @@ class Datas
                 $return = strtoupper($return);
             }            
         }else{
-            throw new \Exception("Número inadequado para um dia da semana [0-6]('$dayNumber').");
+            throw new Exception("Número inadequado para um dia da semana [0-6]('$dayNumber').");
         }
         
         $return = utf8_encode($return);
@@ -195,7 +195,7 @@ class Datas
      *
      * @param int $dayNumber
      * @param boolean $abrev
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     public function getWeekDayName($fullName = false): string
@@ -230,13 +230,13 @@ class Datas
      *
      * @param int $dayNumber
      * @param boolean $abrev
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     static function getMonthName_(int $monthNumber, $fullName = true): string
     {
         if ($monthNumber < 1 || $monthNumber > 12) {
-            throw new \Exception("Número inadequado para um mês ('$monthNumber').");
+            throw new Exception("Número inadequado para um mês ('$monthNumber').");
         }
         $code = $fullName ? '%B' : '%b';
         $return = strftime($code, self::mktime('Y-m-d', "2018-$monthNumber-01"));
@@ -249,7 +249,7 @@ class Datas
      * @param string $size [p,n,g]
      * @param bool $uppercase - todo em maiusculo?
      * @param bool $ucfirst - apenas a primeira letra em maiusculo?
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     static function getMonthName(int $monthNumber, string $size = 'p',bool $uppercase=true,bool $ucfirst=false): string
@@ -266,7 +266,7 @@ class Datas
             }else if($size=='g'){
                 $return = strftime('%B', self::mktime('Y-m-d', "2018-$monthNumber-01"));                
             }else{
-                throw new \Exception("Tamanho inadequado ('$size'). Tamanhos permitidos: P, M e G.");
+                throw new Exception("Tamanho inadequado ('$size'). Tamanhos permitidos: P, M e G.");
             }
             //primeira - maiuscula ----------------------------------------------------------------------------------------
             if($ucfirst){
@@ -278,7 +278,7 @@ class Datas
             }            
             
         }else{
-            throw new \Exception("Número inadequado para um mês ('$monthNumber').");
+            throw new Exception("Número inadequado para um mês ('$monthNumber').");
         }
         
         $return = utf8_encode($return);

@@ -32,7 +32,7 @@ class Safety
                 while ($msg = openssl_error_string()) {
                     $error .= $msg . "<br />\n";
                 }
-                throw new \Exception("Não foi possível realizar a criptografia. <hr/>$error");
+                throw new Exception("Não foi possível realizar a criptografia. <hr/>$error");
             }
             $output = base64_encode($output);
         } else if ($action == 'decrypt') {
@@ -44,10 +44,10 @@ class Safety
                 while ($msg = openssl_error_string()) {
                     $error .= $msg . "<br />\n";
                 }
-                throw new \Exception("Não foi possível realizar a descriptografia. <hr/>$error");
+                throw new Exception("Não foi possível realizar a descriptografia. <hr/>$error");
             }
         } else {
-            throw new \Exception("Tipo de cifragem desconhecido ($action).");
+            throw new Exception("Tipo de cifragem desconhecido ($action).");
         }
         return $output;
     }

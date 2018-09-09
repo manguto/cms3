@@ -27,7 +27,7 @@ class HTTPMethods
      * @param string $default
      * @param bool $allowUndefined
      * @param bool $allowEmpty
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     static function POSTVariable(string $varName, $default = '', bool $allowUndefined = false, bool $allowEmpty = false)
@@ -37,11 +37,11 @@ class HTTPMethods
         if (isset($_POST[$varName])) {
             $return = $_POST[$varName];
             if ($return == '' && ! $allowEmpty) {
-                throw new \Exception("Parâmetro sem valor encontrado (\$_POST[$varName]='').");
+                throw new Exception("Parâmetro sem valor encontrado (\$_POST[$varName]='').");
             }
         } else {
             if (! $allowUndefined) {
-                throw new \Exception("Parâmetro indefinido (\$_POST[$varName]).");
+                throw new Exception("Parâmetro indefinido (\$_POST[$varName]).");
             }
         }
         
@@ -59,7 +59,7 @@ class HTTPMethods
      * @param string $default
      * @param bool $allowUndefined
      * @param bool $allowEmpty
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     static function GETVariable(string $varName, $default = '', bool $allowUndefined = false, bool $allowEmpty = false)
@@ -69,11 +69,11 @@ class HTTPMethods
         if (isset($_GET[$varName])) {
             $return = trim($_GET[$varName]);
             if ($return == '' && ! $allowEmpty) {
-                throw new \Exception("Parâmetro sem valor encontrado (\$_GET[$varName]='').");
+                throw new Exception("Parâmetro sem valor encontrado (\$_GET[$varName]='').");
             }
         } else {
             if (! $allowUndefined) {
-                throw new \Exception("Parâmetro indefinido (\$_GET[$varName]).");
+                throw new Exception("Parâmetro indefinido (\$_GET[$varName]).");
             }
         }
         
@@ -120,7 +120,7 @@ class HTTPMethods
                 $urlPath = '';
                 $urlParameteres = $urlArrayCompleto[0];
             } else {
-                throw new \Exception("URL com formato incorreto, ou seja, mais de um caractere '?' ($urlString).");
+                throw new Exception("URL com formato incorreto, ou seja, mais de um caractere '?' ($urlString).");
             }
             // debug($urlPath,0); debug($urlParameteres);
         }
@@ -139,7 +139,7 @@ class HTTPMethods
                     $key = $keyValArray[0];
                     $val = $keyValArray[1];
                 } else {
-                    throw new \Exception("URL com formacao parametrial incorreta ($keyVal).");
+                    throw new Exception("URL com formacao parametrial incorreta ($keyVal).");
                 }
                 // tratamento possivel 'url encode'
                 $val = urldecode($val);
@@ -156,7 +156,7 @@ class HTTPMethods
      * returna uma string com a url correspondente ao array (padrao do sistema) informado
      *
      * @param array $urlArray
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     static function URLArray2String(Array $urlArray)
@@ -164,7 +164,7 @@ class HTTPMethods
         $return = '';
         { // ----------------------------------------------------------------------------------- path
             if (! isset($urlArray['path'])) {
-                throw new \Exception('Nao foi encontrado o parametro "path" no array informado.');
+                throw new Exception('Nao foi encontrado o parametro "path" no array informado.');
             }
             $path = $urlArray['path'];
             unset($urlArray['path']);

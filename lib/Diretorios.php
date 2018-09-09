@@ -89,7 +89,7 @@ class Diretorios {
 	        if (! file_exists ( $pathname )) {
 	            $return = mkdir ( $pathname, 0777, $recursivo );
 	            if (! $return) {
-	                throw new \Exception ( "Não foi possível criar o diretório '$pathname'." );
+	                throw new Exception ( "Não foi possível criar o diretório '$pathname'." );
 	            }
 	        }
 	    }		
@@ -147,7 +147,7 @@ class Diretorios {
 				
 				// ------------------------- remover arquivo --------------------------------
 				if (! unlink ( $object )) {
-					throw new \Exception ( "NAO FOI POSSIVEL REMOVER O ARQUIVO '$object'." );
+					throw new Exception ( "NAO FOI POSSIVEL REMOVER O ARQUIVO '$object'." );
 				} else {
 					//echo "Arquivo removido com sucesso o arquivo '$object'.<br/>";
 				}
@@ -164,7 +164,7 @@ class Diretorios {
 				
 				if (! rmdir ( $path )) {
 					$msg = "<b style='color:#000; background:#f00; text-decoration:underline; padding:2px;'>NAO FOI POSSIVEL REMOVER A PASTA '$path'.</b>";
-					throw new \Exception ( $msg );
+					throw new Exception ( $msg );
 					echo $msg;
 				} else {
 					//echo "Diretório removido com sucesso o arquivo '$path'.<br/>";

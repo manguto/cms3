@@ -2,6 +2,8 @@
 
 namespace manguto\cms3\repository;
 
+use manguto\cms3\lib\Exception;
+
 class RepositoryCSV{
     
     const parameterSeparator = ';';
@@ -13,7 +15,7 @@ class RepositoryCSV{
     /**
      * Converte um ARRAY para uma string no formato CSV
      * @param array $array
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     static function ArrayToCSV(array $array):string{
@@ -60,7 +62,7 @@ class RepositoryCSV{
                         $lines[]=implode(RepositoryCSV::parameterSeparator, $line);
                                              
                     }else{
-                        throw new \Exception("Não foi possível converter o array para uma string (CSV).");
+                        throw new Exception("Não foi possível converter o array para uma string (CSV).");
                     }
                 }
             }
@@ -73,7 +75,7 @@ class RepositoryCSV{
     /**
      * Converte um string no formato CSV para um ARRAY
      * @param array $array
-     * @throws \Exception
+     * @throws Exception
      * @return string
      */
     static function CSVToArray(string $csv,string $idname){
@@ -102,7 +104,7 @@ class RepositoryCSV{
                     }
                 }
                 if(!isset($idKey)){
-                    throw new \Exception("Não foi encontrada nenhum parametro (".implode(', ',$headerLineArray).") que coincida com a chave para indexação informada ($idname).");
+                    throw new Exception("Não foi encontrada nenhum parametro (".implode(', ',$headerLineArray).") que coincida com a chave para indexação informada ($idname).");
                 }
                 //deb($csvHeaderLine,0);
             }

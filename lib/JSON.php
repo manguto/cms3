@@ -8,7 +8,7 @@ class JSON
     {
         $json = json_encode($data);
         if ($json == false) {
-            throw new \Exception(json_last_error_msg());
+            throw new Exception(json_last_error_msg());
         } else {
             if($setHeaderPrintExit){
                 self::setHeader();

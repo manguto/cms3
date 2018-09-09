@@ -6,6 +6,7 @@ require_once 'configurations.php';
 use Slim\Slim;
 use lib\control\Control;
 use manguto\cms3\gms\GMSHelp;
+use manguto\cms3\lib\Exception;
 
 try {
     
@@ -19,8 +20,8 @@ try {
         Control::Run($app);
         $app->run();
     }
-} catch (\Throwable $e) { // \Exception | \Error |
-    exceptionShow($e, true);
+} catch (Exception $e) { // \Throwable | Exception | \Error |    
+    $e->show(true);
 }
 // !d($GLOBALS);
 ?>

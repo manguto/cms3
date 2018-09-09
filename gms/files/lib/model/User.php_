@@ -85,7 +85,7 @@ class User extends Repository
         $results = Repository::getRepository('user',$conditions);        
         //deb($results);
         if (count($results) === 0) {
-            throw new \Exception("Usuário inexistente ou senha inválida.");
+            throw new Exception("Usuário inexistente ou senha inválida.");
         }
         //deb($results);
         $user = array_shift($results);
@@ -175,7 +175,7 @@ class User extends Repository
         // deb($results);
         
         if (count($results) == 0) {
-            throw new \Exception("Não foi possível recuperar a sua senha.");
+            throw new Exception("Não foi possível recuperar a sua senha.");
         } else {
             
             $user = array_shift($results);
@@ -237,7 +237,7 @@ class User extends Repository
         //deb($results);
         
         if (count($results) === 0) {
-            throw new \Exception("Recuperação inválida (identificador incorreto ou senha já recuperada).");
+            throw new Exception("Recuperação inválida (identificador incorreto ou senha já recuperada).");
         } else {
             $userpasswordrecoveries = array_shift($results);
             if ($userpasswordrecoveries->DeadlineValid()) {
@@ -246,7 +246,7 @@ class User extends Repository
                 $user->setrecoveryid($recoveryid);
                 $user->save();
             } else {
-                throw new \Exception("Recuperação inválida (intervalo máximo de tempo ultrapassado).");
+                throw new Exception("Recuperação inválida (intervalo máximo de tempo ultrapassado).");
             }
         }
         return $user;
@@ -285,35 +285,35 @@ class User extends Repository
     
     /**
      * Verifica se os campos informados ($_POST) podem ser utilizados em um usuario para criacao ou atualizacao
-     * @throws \Exception
+     * @throws Exception
      */
     public function verifyFieldsToCreateUpdate(){
         
         // name
         if ($this->getname() == '') {
-            throw new \Exception("Preencha o seu nome.");
+            throw new Exception("Preencha o seu nome.");
         }
         // email
         if ($this->getemail() == '') {
-            throw new \Exception("Preencha o seu email.");
+            throw new Exception("Preencha o seu email.");
         }
         // login
         if ($this->getlogin() == '') {
-            throw new \Exception("Preencha o seu login.");
+            throw new Exception("Preencha o seu login.");
         }
         
         // login exists
         if ($this->checkLoginExist()) {
-            throw new \Exception("O Login '<b>".$this->getLogin()."</b>' já se encontra em uso.<br/> Preencha outro valor e tente novamente.");
+            throw new Exception("O Login '<b>".$this->getLogin()."</b>' já se encontra em uso.<br/> Preencha outro valor e tente novamente.");
         }
         // email exists
         if ($this->checkEmailExist()) {
-            throw new \Exception("O E-mail '<b>".$this->getEmail()."</b>' já se encontra em uso.<br/> Preencha outro valor e tente novamente.");            
+            throw new Exception("O E-mail '<b>".$this->getEmail()."</b>' já se encontra em uso.<br/> Preencha outro valor e tente novamente.");            
         }
                 
         // password
         if ($this->getpassword() == '') {
-            throw new \Exception("Preencha a sua senha.");            
+            throw new Exception("Preencha a sua senha.");            
         }
         
     }
@@ -322,27 +322,27 @@ class User extends Repository
     public function verifyPasswordUpdate($current_pass,$new_pass,$new_pass_confirm){
         { // --- ERROR VERIFICATION
             if ($current_pass === '') {
-                throw new \Exception('Digite a SENHA ATUAL.');                
+                throw new Exception('Digite a SENHA ATUAL.');                
             }
             
             if ($new_pass === '') {
-                throw new \Exception('Digite a NOVA SENHA.');                
+                throw new Exception('Digite a NOVA SENHA.');                
             }
             
             if ($new_pass_confirm === '') {
-                throw new \Exception('Digite a CONFIRMAÇÃO da nova senha.');                
+                throw new Exception('Digite a CONFIRMAÇÃO da nova senha.');                
             }
             
             if ($new_pass !== $new_pass_confirm) {
-                throw new \Exception('A CONFIRMAÇÃO da nova senha NÃO CONFERE.');                
+                throw new Exception('A CONFIRMAÇÃO da nova senha NÃO CONFERE.');                
             }
             
             if (User::password_crypt($new_pass) === $this->getPassword()) {
-                throw new \Exception('A sua nova senha deve ser DIFERENTE da atual.');                
+                throw new Exception('A sua nova senha deve ser DIFERENTE da atual.');                
             }
             
             if (User::password_crypt($current_pass) !== $this->getPassword()) {
-                throw new \Exception('A SENHA ATUAL não está correta.');                
+                throw new Exception('A SENHA ATUAL não está correta.');                
             }
         }
     }

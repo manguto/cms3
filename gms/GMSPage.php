@@ -4,6 +4,7 @@ namespace manguto\cms3\gms;
 
 use Rain\Tpl;
 use manguto\cms3\lib\Arquivos;
+use manguto\cms3\lib\Exception;
 
 
 /**
@@ -95,7 +96,7 @@ class GMSPage{
 	static function TplReferencesFix($html){
 	    
 	    if(!defined('ROOT')){
-	        throw new \Exception("Constante 'ROOT' não encontrada (definida).");
+	        throw new Exception("Constante 'ROOT' não encontrada (definida).");
 	    }
 	    
 	    {//exceptions

@@ -1,9 +1,11 @@
 <?php
+
 namespace lib\control;
 
 use lib\model\User;
 use manguto\cms3\lib\ProcessResult;
 use lib\view\ViewAdminLogin;
+use manguto\cms3\lib\Exception;
 
 class ControlAdminLogin extends ControlAdmin
 {
@@ -25,7 +27,7 @@ class ControlAdminLogin extends ControlAdmin
                 User::logout();
                 headerLocation('/login');
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             headerLocation('/admin/login');
         }

@@ -6,6 +6,7 @@ use manguto\cms3\lib\Arquivos;
 use manguto\cms3\lib\Diretorios;
 use manguto\cms3\lib\Strings;
 use manguto\cms3\lib\Log;
+use manguto\cms3\lib\Exception;
 
 class Repository extends Model
 {
@@ -42,7 +43,7 @@ class Repository extends Model
         if (isset($repositoryArray[$this->getIdValue()])) {
             $this->setData($repositoryArray[$this->getIdValue()]);
         } else {
-            throw new \Exception("O registro de identificador '" . $this->getIdValue() . "', não foi encontrado no repositório '" . $this->repositoryname . "'.");
+            throw new Exception("O registro de identificador '" . $this->getIdValue() . "', não foi encontrado no repositório '" . $this->repositoryname . "'.");
         }
     }
 
@@ -57,7 +58,7 @@ class Repository extends Model
             unset($repositoryArray[$idValueOld]);
             Repository::saveRepositoryARRAY($this->repositoryname, $repositoryArray);
         } else {
-            throw new \Exception("O registro de identificador '" . $this->getIdValue() . "', não foi encontrado no repositório '" . $this->repositoryname . "'.");
+            throw new Exception("O registro de identificador '" . $this->getIdValue() . "', não foi encontrado no repositório '" . $this->repositoryname . "'.");
         }
     }
 

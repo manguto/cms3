@@ -6,6 +6,8 @@ namespace manguto\cms3\gms;
 use manguto\cms3\lib\Diretorios;
 use manguto\cms3\lib\ServerHelp;
 use manguto\cms3\lib\Arquivos;
+use manguto\cms3\lib\Exception;
+use manguto\cms3\lib\Javascript;
 
 class GMSHelp{
     
@@ -23,7 +25,7 @@ class GMSHelp{
             define('ROOT_TPL', GMSHelp::ROOT_TPL());
             
         }else{
-            throw new \Exception("A constante 'VIRTUAL_HOST_ACTIVE' não foi definida. Defina-a no arquivo de CONFGURAÇÕES e tente novamente.");
+            throw new Exception("A constante 'VIRTUAL_HOST_ACTIVE' não foi definida. Defina-a no arquivo de CONFGURAÇÕES e tente novamente.");
         }
     }
         
@@ -93,29 +95,36 @@ class GMSHelp{
             //deb($foldersFiles);
             //criacao de pastas e arquivos
             $relat[] = "<ol>";
-            foreach ($originFiles as $originFile){
-                $relat[] = "<li>$originFile";
+            foreach ($originFiles as $originFile){                
+                $relat[] = "<li>$originFile";                
                 $destinationFilePath = str_replace($originFilesPath.DIRECTORY_SEPARATOR,'',$originFile);
+                
                 if(is_dir($originFile)){
                     if(!file_exists($destinationFilePath)){
                         Diretorios::mkdir($destinationFilePath);
                         $relat[] = " - Diretório '$destinationFilePath' criado com sucesso!";
                     }
                 }else if(is_file($originFile)){
+                    {//tratamento deviso a extensao "php_"
+                        $ext = Arquivos::obterExtensao($originFile);
+                        if($ext=='php_'){
+                            $destinationFilePath = str_replace('php_','php',$destinationFilePath);
+                        }
+                    }
                     if(!file_exists($destinationFilePath)){
                         $data = Arquivos::obterConteudo($originFile);
                         Arquivos::escreverConteudo('.'.DIRECTORY_SEPARATOR.$destinationFilePath, $data);
                         $relat[] = " - Arquivo '$destinationFilePath' criado com sucesso!";
                     }
                 }else{
-                    throw new \Exception("Tipo de arquivo inadequado (?).");
+                    throw new Exception("Tipo de arquivo inadequado (?).");
                 }
                 $relat[] = "</li>";
             }
             {//troca dos arquivos de index
                 {//setup file
                     $filename = 'setup.php';
-                    $content = Arquivos::obterConteudo('index.php');
+                    $content = Arquivos::obterConteudo(__FILE__);
                     Arquivos::escreverConteudo($filename, $content);
                 }                
                 {//index file
@@ -138,6 +147,7 @@ class GMSHelp{
             $relat[] = "<br/>";
             $relat[] = "<br/>";
             $relat[] = "<br/>";
+            $relat[] = Javascript::TimeoutDocumentLocation('index.php');
             {//relat
                 $relat=implode(chr(10), $relat);
                 if($echo){
@@ -146,8 +156,8 @@ class GMSHelp{
                     return $relat;
                 }
             }
-        } catch (\Exception $e) {
-            echo exceptionShow($e);
+        } catch (Exception $e) {
+            echo $e->show();
         }
          
     }

@@ -81,10 +81,10 @@ class CSV {
 		
 		$return = array();
 		if (! is_array($registroBaseCSVArray))
-			throw new \Exception("Parâmetro deve ser um array.");
+			throw new Exception("Parâmetro deve ser um array.");
 		foreach ($registroBaseCSVArray as $registroBaseCSV) {
 			if (! is_array($registroBaseCSV))
-				throw new \Exception("Parâmetro deve ser um array.");
+				throw new Exception("Parâmetro deve ser um array.");
 			$registroTmp = new stdClass();
 			foreach ($registroBaseCSV as $parametro => $valor) {
 				$registroTmp->$parametro = $valor;
