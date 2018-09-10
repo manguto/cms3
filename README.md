@@ -1,6 +1,6 @@
 # CMS3 - My Content Management Sistem
 
-> My Content Management Sistem is in Versin 3 and its inttent is to help while developping any kind of personal solution. 
+> My Content Management Sistem (v.3) intended to help developping simple personal solutions. 
 
 ----
 ## composer.json
@@ -17,12 +17,10 @@
     }
 
 ## index.php
-    <?php
+    <?php    
     require_once "vendor/autoload.php";
-    GMSHelp::Setup();
-    
+    GMSHelp::Setup();    
     ?>
-
 
 
 
