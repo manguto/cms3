@@ -1,5 +1,7 @@
 <?php
 
+use manguto\cms3\lib\Arquivos;
+
 // ##################################################################################################
 // ################################ PRIMARY CONFIGURATIONS ##########################################
 // ##################################################################################################
@@ -11,14 +13,16 @@ define("SIS_NAME", "Projeto Modelo");
 define("SIS_ABREV", "PM");
 
 // abrev. do sistema
-define("SIS_FOLDERNAME", "projeto");
+define("SIS_FOLDERNAME", Arquivos::obterNomePasta(__FILE__));
 
 // abrev. do sistema
 define("SIS_EMAIL", "admin@admin.br");
 
 // url real do sistema
-//define("SIS_URL", "http://nti.uast.br/" . SIS_FOLDERNAME);
-define("SIS_URL", "http://localhost/" . SIS_FOLDERNAME);
+define("SERVER_URL", "http://localhost/");
+
+// sistem url
+define("SIS_URL", SERVER_URL . SIS_FOLDERNAME);
 
 // ##################################################################################################
 // ############################## SECUNDARY CONFIGURATIONS #########################################
