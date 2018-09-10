@@ -13,7 +13,7 @@ class GMSHelp{
     
     
     static function Initialization(){
-                
+        
         if(defined('VIRTUAL_HOST_ACTIVE')){
             
             define('ROOT', GMSHelp::ROOT());
@@ -123,9 +123,12 @@ class GMSHelp{
             }
             {//troca dos arquivos de index
                 {//setup file
-                    $filename = 'setup.php';
-                    $content = Arquivos::obterConteudo(__FILE__);
-                    Arquivos::escreverConteudo($filename, $content);
+                    $index_filename = 'index.php';
+                    if(file_exists($index_filename)){
+                        $filename = 'setup.php';
+                        $content = Arquivos::obterConteudo($index_filename);
+                        Arquivos::escreverConteudo($filename, $content);
+                    }                    
                 }                
                 {//index file
                     $filename = 'index.php';
@@ -135,8 +138,7 @@ class GMSHelp{
                 {//gms-index delete
                     $filename = 'gms-index.php';                    
                     Arquivos::excluir($filename);
-                }
-                
+                }                
             }
             
             $relat[] = "</ol>";
