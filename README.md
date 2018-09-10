@@ -18,6 +18,7 @@
 
 ## index.php
     <?php    
+    use manguto\cms3\gms\GMSHelp;
     require_once "vendor/autoload.php";
     GMSHelp::Setup();    
     ?>
