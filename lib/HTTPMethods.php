@@ -47,6 +47,18 @@ class HTTPMethods
         
         return $return;
     }
+    
+    static function POSTSetGet(array $parameters=[]){
+        $return = [];
+        foreach ($parameters as $key=>$defaultValue) {            
+            if(!isset($_POST[$key])){
+                $return[$key] = $defaultValue;
+            }else{
+                $return[$key] = $_POST[$key];
+            }
+        }
+        return $return;
+    }
 
     // #########################################################################################################
     // ############################################ GET ######################################################
