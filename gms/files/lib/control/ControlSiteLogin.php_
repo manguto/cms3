@@ -4,6 +4,7 @@ namespace lib\control;
 use lib\model\User;
 use manguto\cms3\lib\ProcessResult;
 use lib\view\ViewSiteLogin;
+use manguto\cms3\lib\Exception;
 
 class ControlSiteLogin extends ControlSite
 {
@@ -26,7 +27,7 @@ class ControlSiteLogin extends ControlSite
                 headerLocation('/');                
                 exit();
             }
-        } catch (\Exception $e) {     
+        } catch (Exception $e) {     
             ProcessResult::setError($e);
             headerLocation('/login');
             exit();

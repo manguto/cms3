@@ -6,6 +6,7 @@ use manguto\cms3\lib\ProcessResult;
 use manguto\cms3\gms\GMSPage;
 use lib\model\UserPasswordRecoveries;
 use lib\view\ViewSiteForgot;
+use manguto\cms3\lib\Exception;
 
 class ControlSiteForgot extends ControlSite
 {
@@ -22,7 +23,7 @@ class ControlSiteForgot extends ControlSite
             User::getForgot(trim($_POST['email']), false);
             headerLocation('/forgot/sent');
             exit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             headerLocation('/forgot');
             exit();
@@ -54,7 +55,7 @@ class ControlSiteForgot extends ControlSite
                 'name' => $user->getname(),
                 'code' => $code
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             //deb($e);
             ProcessResult::setError($e);
             headerLocation('/forgot');
@@ -72,7 +73,7 @@ class ControlSiteForgot extends ControlSite
             $user->setPassword(User::password_crypt($_POST['password']));
             $user->save();
             ViewSiteForgot::post_forgot_reset();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             headerLocation('/forgot');
             exit();

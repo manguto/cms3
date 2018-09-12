@@ -1,8 +1,6 @@
 <?php
 namespace manguto\cms3\lib;
 
-use Rain\Tpl\Exception;
-
 /**
  * Classe de auxilio quando do tratamento de datas/horas
  * @author Marcos Torres

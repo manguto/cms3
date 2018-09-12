@@ -5,8 +5,8 @@ use manguto\cms3\model\Model;
 use manguto\cms3\lib\ProcessResult;
 use manguto\cms3\lib\Safety;
 use manguto\cms3\lib\Mailer;
-use Rain\Tpl\Exception;
 use manguto\cms3\repository\Repository;
+use manguto\cms3\lib\Exception;
 
 class User extends Repository
 {
@@ -112,7 +112,7 @@ class User extends Repository
             try {
                 //deb($user_array);
                 $user = new User($user_array['userid']);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 ProcessResult::setError($e);
                 User::logout();
                 headerLocation('/login');

@@ -5,6 +5,7 @@ use lib\model\User;
 use manguto\cms3\lib\ProcessResult;
 use manguto\cms3\repository\Repository;
 use lib\view\ViewAdminUsers;
+use manguto\cms3\lib\Exception;
 
 class ControlAdminUsers extends ControlAdmin
 {
@@ -42,7 +43,7 @@ class ControlAdminUsers extends ControlAdmin
             ProcessResult::setSuccess("Usuário salvo com sucesso!");
             headerLocation("/admin/users");
             exit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             headerLocation("/admin/users/create");
             exit();
@@ -76,7 +77,7 @@ class ControlAdminUsers extends ControlAdmin
             ProcessResult::setSuccess("Usuário atualizado com sucesso!");
             headerLocation("/admin/users");
             exit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             headerLocation("/admin/users/create");
             exit();

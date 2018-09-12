@@ -2,9 +2,9 @@
 namespace lib\control;
 
 use lib\model\User;
-use Rain\Tpl\Exception;
 use manguto\cms3\lib\ProcessResult;
 use lib\view\ViewSiteRegister;
+use manguto\cms3\lib\Exception;
 
 class ControlSiteRegister extends ControlSite
 {
@@ -51,7 +51,7 @@ class ControlSiteRegister extends ControlSite
             User::login($_POST['email'], $_POST['password']);
             headerLocation('/');            
             exit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             headerLocation('/login');
             exit();

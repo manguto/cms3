@@ -4,6 +4,7 @@ namespace lib\control;
 use lib\model\User;
 use manguto\cms3\lib\ProcessResult;
 use lib\view\ViewSiteProfile;
+use manguto\cms3\lib\Exception;
 
 class ControlSiteProfile extends ControlSite
 {
@@ -32,7 +33,7 @@ class ControlSiteProfile extends ControlSite
             ProcessResult::setSuccess('Usuário salvo com sucesso!');
             headerLocation('/profile');
             exit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             $_SESSION[SIS_ABREV]['registerFormValues'] = $_POST;
             headerLocation('/profile');
@@ -60,7 +61,7 @@ class ControlSiteProfile extends ControlSite
             ProcessResult::setSuccess('Senha alterada com sucesso!!!');
             headerLocation('/');
             exit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             headerLocation('/profile/change-password');
             exit();

@@ -4,6 +4,7 @@ namespace lib\control;
 use lib\model\User;
 use manguto\cms3\lib\ProcessResult;
 use lib\view\ViewAdminProfile;
+use manguto\cms3\lib\Exception;
 
 class ControlAdminProfile extends ControlAdmin
 {
@@ -33,7 +34,7 @@ class ControlAdminProfile extends ControlAdmin
             ProcessResult::setSuccess('Usuário salvo com sucesso!');
             headerLocation('/admin/profile');
             exit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             $_SESSION[SIS_ABREV]['registerFormValues'] = $_POST;
             headerLocation('/admin/profile');
@@ -61,7 +62,7 @@ class ControlAdminProfile extends ControlAdmin
             ProcessResult::setSuccess('Senha alterada com sucesso!!!');
             headerLocation('/admin/profile');
             exit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             ProcessResult::setError($e);
             headerLocation('/admin/profile/change-password');
             exit();
