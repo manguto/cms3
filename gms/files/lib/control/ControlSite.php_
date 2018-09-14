@@ -80,7 +80,7 @@ class ControlSite extends Control
     static private function instrucoes()
     {
         Control::LoggedZone();
-        ViewSite::home();
+        ViewSite::instrucoes();
     }
 }
 
