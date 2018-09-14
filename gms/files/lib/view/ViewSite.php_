@@ -8,8 +8,8 @@ class ViewSite extends View
         View::Page("index");
     }
     
-    static function home()
+    static function instrucoes()
     {           
-        View::Page("home");        
+        View::Page("instrucoes");        
     }
 }

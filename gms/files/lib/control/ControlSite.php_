@@ -32,8 +32,8 @@ class ControlSite extends Control
         });
 
         // ================================================ home
-        $app->get('/home', function () {
-            ControlSite::home();
+        $app->get('/instrucoes', function () {
+            ControlSite::instrucoes();
         });
 
         // ================================================ profile
@@ -77,7 +77,7 @@ class ControlSite extends Control
         ViewSite::index();
     }
 
-    static private function home()
+    static private function instrucoes()
     {
         Control::LoggedZone();
         ViewSite::home();
