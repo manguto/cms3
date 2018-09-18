@@ -2,6 +2,9 @@
 
 namespace manguto\cms3\model;
 
-class ModelFunctions{
-       
+
+class ModelStructure{
+    
+    
+    
 }

@@ -190,6 +190,44 @@ class Strings
     {
         return self::AleatoriosNumeros(3) . '.' . self::AleatoriosNumeros(3) . '.' . self::AleatoriosNumeros(3) . '-' . self::AleatoriosNumeros(2);
     }
+    
+    /**
+     * gera uma sequencia similar a de um celular 
+     *
+     * @return string
+     */
+    static function AleatorioCelular($ddd=87): string
+    {
+        return "(87) 9." .rand(8,9). self::AleatoriosNumeros(3) . '-' . self::AleatoriosNumeros(4);
+    }
+    
+    /**
+     * gera uma sequencia similar a de um nome de pessoa sem padrao definido 
+     *
+     * @return string
+     */
+    static function AleatorioNomePessoa(): string
+    {
+        $return = [];
+        //quantidade de palavras do nome da pessoa
+        $quantp=rand(2,4);
+        for($p=1;$p<=$quantp;$p++){
+            $pmaxlen = 10;
+            if($p==1 || $p==$quantp){
+                $pminlen = 5;
+            }else{
+                $pminlen = 1;
+            }             
+            $ptmp = Strings::AleatoriaString(rand($pminlen,$pmaxlen));
+            if(strlen($ptmp)>2){
+                $ptmp=ucfirst($ptmp);
+            }
+            $return[] = $ptmp;
+        }
+        $return = implode(' ', $return);
+        return $return;
+    }
+    
 
     static function unwrap(string $string, string $delimiterLeft, string $delimiterRight): string
     {   

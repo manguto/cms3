@@ -9,6 +9,8 @@ class Model
 
     protected $values = [];
 
+    protected $structure = [];
+
     protected $modelname;
 
     protected $repositoryname;
@@ -17,10 +19,10 @@ class Model
 
     public function __construct(int $idValue = 0)
     {
-        $this->setModelname();        
-        
+        $this->setModelname();
+
         $this->setRepositoryname();
-        
+
         $this->setIdname();
 
         $this->setIdValue($idValue);
@@ -95,6 +97,42 @@ class Model
     public function getData(): array
     {
         return $this->values;
+    }
+
+    /**
+     * define um conteudo estrutural para o modelo
+     *
+     * @return array
+     */
+    public function setStructure($name, $value='', $label='', $type='string')
+    {   
+        {
+            $label = $label=='' ? ucfirst($name) : $label;
+        }
+        $this->structure[$name] = [
+            'name' => $name,
+            'label' => $label,
+            'value' => $value,
+            'type' => $type
+        ];
+    }
+
+    /**
+     * obtem o conteudo estrutural do modelo
+     *
+     * @return array
+     */
+    public function getStructure(): array
+    {   
+        $values = $this->values;
+        foreach ($values as $name=>$value){
+            if(isset($this->structure[$name])){
+                $this->structure[$name]['value'] = $this->values[$name];
+            }else{                
+                $this->setStructure($name,$value);
+            }
+        }
+        return $this->structure;
     }
 
     /**
@@ -183,9 +221,8 @@ class Model
     // --------------------------------------------------------------------------------------------------------------
     /**
      * define o nome do modelo do objeto
-     *
      */
-    private function setModelname():void
+    private function setModelname(): void
     {
         $modelname = get_class($this);
         $modelname = ServerHelp::fixds($modelname);
@@ -196,26 +233,24 @@ class Model
 
     /**
      * define o nome da possivel tabela do repositorio para o objeto atual
-     *
      */
-    private function setRepositoryname():void
+    private function setRepositoryname(): void
     {
         $this->repositoryname = strtolower($this->modelname);
     }
 
     /**
      * define o nome do id (entificador) da possivel tabela do objeto
-     *
      */
-    private function setIdname():void
+    private function setIdname(): void
     {
         $this->idname = $this->repositoryname . 'id';
     }
-    
+
     /**
      * Ordena os parametros ou valores do objeto de forma que o id fique como o primeiro item da lista
      */
-    private function ordenateValues():void
+    private function ordenateValues(): void
     {
         $valuesOrd = [];
         $valuesOrd[$this->getIdname()] = NULL;
@@ -225,12 +260,10 @@ class Model
         $this->values = $valuesOrd;
     }
 
-    //...
-    //...
-    //...
-    //...
-    
-    
+    // ...
+    // ...
+    // ...
+    // ...
 }
 
 ?>
